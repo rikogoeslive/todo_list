@@ -1,42 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To Do List</title>
-</head>
-<body>
-    {% if request.user.is_authenticated %}
-    <p>{{request.user}}</p>
-    <a href="{% url 'logout' %}">Logout</a>
-    {% else %}
-    <a href="{% url 'login' %}">Login</a>    
-    {% endif %}
-    <hr>
-    <h1>My list</h1>
-    <a href="{% url 'task-create' %}">Add task</a>
-    <form method="GET">
-        <input type="text" name="search-area" value="{{search_bar}}">
-        <input type="submit" value="Search">
-    </form> 
-    <table>
-        <tr>
-            <th>Item</th>
-            <th></th>
-            <th></th>
-        </tr>
-        {% for task in tasks %}
-        <tr>
-            <td>{{task.title}}</td>
-            <td><a href="{% url 'task' task.id %}">View</a></td>
-            <td><a href="{% url 'task-update' task.id %}">Edit</a></td>
-            <td><a href="{% url 'task-delete' task.id %}">Delete</a></td>
-        </tr>
-        {% empty %}
-            <h3>No items in list</h3>
-        {% endfor %}
-    </table>
-</body>
-</html>
+{% extends 'base/main.html' %}
+{% block content %}
+{% if request.user.is_authenticated %}
+<p>{{request.user}}</p>
+<a href="{% url 'logout' %}">Logout</a>
+{% else %}
+<a href="{% url 'login' %}">Login</a>    
+{% endif %}
+<hr>
+<h1>My list</h1>
+<a href="{% url 'task-create' %}">Add task</a>
+<form method="GET">
+    <input type="text" name="search-area" value="{{search_bar}}">
+    <input type="submit" value="Search">
+</form> 
+<table>
+    <tr>
+        <th>Item</th>
+        <th></th>
+        <th></th>
+    </tr>
+    {% for task in tasks %}
+    <tr>
+        <td>{{task.title}}</td>
+        <!-- <td><a href="{% url 'task' task.id %}">View</a></td> -->
+        <td><a href="{% url 'task-update' task.id %}">Edit</a></td>
+        <td><a href="{% url 'task-delete' task.id %}">Delete</a></td>
+    </tr>
+    {% empty %}
+        <h3>No items in list</h3>
+    {% endfor %}
+</table>
+{% endblock content %}
 
