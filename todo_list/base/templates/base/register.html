@@ -1,11 +1,25 @@
 {% extends 'base/main.html' %}
 {% block content  %}
-<h1>Registration</h1>
-<a href="{% url 'tasks' %}">GO BACK</a> 
-<form method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" value="Register">
-</form>
-<p>Already have an account ?<a href="{% url 'login' %}"> Login</p>
+
+<div class="header-bar">
+    <h1>Registration</h1>
+</div>
+
+<div class="task-form-body">
+    {% comment %} <a href="{% url 'tasks' %}">GO BACK</a>  {% endcomment %}
+    <form method="POST">
+        {% csrf_token %}
+        <label>{{form.username.label}}</label>
+        {{form.username}}
+        <label>{{form.email.label}}</label>
+        {{form.email}}
+        <label>{{form.password1.label}}</label>
+        {{form.password1}}
+        <label>{{form.password2.label}}</label>
+        {{form.password2}}
+        <p></p>
+        <button class="button" type="submit">Submit</button>
+    </form>
+    <p>Already have an account ?<a class="button-reg-log" href="{% url 'login' %}">Login</a></p>
+</div>
 {% endblock content %}
