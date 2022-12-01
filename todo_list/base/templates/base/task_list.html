@@ -1,12 +1,18 @@
-
-{% if request.user.is_authenticated %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+</head>
+<body>
+    {% if request.user.is_authenticated %}
 <p>{{request.user}}</p>
 <a href="{% url 'logout' %}">Logout</a>
 {% else %}
 <a href="{% url 'login' %}">Login</a>    
 {% endif %}
-
-
 <hr>
 <h1>My list</h1>
 <a href="{% url 'task-create' %}">Add task</a>
@@ -27,3 +33,6 @@
         <h3>No items in list</h3>
     {% endfor %}
 </table>
+</body>
+</html>
+
