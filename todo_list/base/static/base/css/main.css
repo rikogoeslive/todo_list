@@ -66,10 +66,11 @@ hr {
     padding-top: 0px;
 }
 h1, h2, h3 {
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Raleway', sans-serif;    
 }
 input[type=text],
 input[type=password],
+input[type=email],
 textarea{
     border: 1px solid black;
     border-radius: 5px;

@@ -7,6 +7,7 @@
 
 <div class="task-form-body">
     {% comment %} <a href="{% url 'tasks' %}">GO BACK</a>  {% endcomment %}
+    {{ form.errors }}
     <form method="POST">
         {% csrf_token %}
         <label>{{form.username.label}}</label>

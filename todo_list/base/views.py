@@ -1,6 +1,6 @@
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm 
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
 from django.views.generic.list import ListView 
@@ -9,6 +9,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormVi
 from django.urls import reverse_lazy
 from django.contrib import messages 
 from .models import Task
+from .forms import RegisterUserForm
 
 
 class Login(LoginView):
@@ -23,7 +24,7 @@ class Login(LoginView):
 
 class RegisterPage(FormView):
     template_name = 'base/register.html'
-    form_class = UserCreationForm
+    form_class = RegisterUserForm
     redirect_authenticated_user = True
     success_url = reverse_lazy('tasks')
 
@@ -38,6 +39,8 @@ class RegisterPage(FormView):
         if self.request.user.is_authenticated:            
             return redirect('tasks')
         return super(RegisterPage, self).get(*args, **kwargs)
+
+    
 
 
 class TaskList(LoginRequiredMixin, ListView):
