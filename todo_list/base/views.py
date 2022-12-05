@@ -2,6 +2,7 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm 
 from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.views.generic.list import ListView 
 from django.views.generic.detail import DetailView
@@ -9,7 +10,8 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormVi
 from django.urls import reverse_lazy
 from django.contrib import messages 
 from .models import Task
-from .forms import RegisterUserForm
+from . forms import RegisterUserForm, UserUpdateForm
+
 
 
 class Login(LoginView):
@@ -41,8 +43,6 @@ class RegisterPage(FormView):
         return super(RegisterPage, self).get(*args, **kwargs)
 
     
-
-
 class TaskList(LoginRequiredMixin, ListView):
     model = Task
     context_object_name = 'tasks'
@@ -89,3 +89,17 @@ class TaskDelete(LoginRequiredMixin, DeleteView):
     def form_valid(self, form):
         messages.success(self.request, 'You have succesfully deleted task!')
         return super().form_valid(form)
+
+
+@login_required
+def update_profile(request):
+    if request.method == "POST":
+        user_form = UserUpdateForm(request.POST, instance=request.user)        
+        if user_form.is_valid():
+            user_form.save()            
+            messages.success(request, f"User {request.user.username} profile updated.")
+            return redirect('tasks')
+    else: 
+        user_form = UserUpdateForm(instance=request.user)        
+    
+    return render(request,'base/profile.html', {'user_form':user_form})

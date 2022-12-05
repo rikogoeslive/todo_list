@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -16,3 +17,15 @@ class Task(models.Model):
 
     class Meta:
         ordering = ['complete']
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(
+        get_user_model(),
+        verbose_name="user",    
+        on_delete=models.CASCADE,
+        related_name="profile",
+    )
+
+    def __str__(self) -> str:
+        return f"{self.user} profile"

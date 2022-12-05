@@ -4,12 +4,6 @@ from django import forms
 
 class RegisterUserForm(UserCreationForm):
     email = forms.EmailField()
-    # first_name = forms.CharField(max_length=50)
-    # last_name = forms.CharField(max_length=50)
-
-    # class Meta:
-    #     model = User
-    #     fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -17,3 +11,10 @@ class RegisterUserForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField()
+    
+    class Meta:
+        model = User
+        fields = ("email", )

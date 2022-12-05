@@ -1,0 +1,20 @@
+{% extends 'base/main.html' %}
+{% block content %}
+<div class="header-bar">
+    <a href="{% url 'tasks' %}">&#8592; Back</a>
+</div>
+    <div class="header-bar">
+        <h3>{{ user }} Profile</h3>
+        <p>Here you can update your information</p> 
+    </div>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ user_form.errors }}
+        {{ profile_form.errors }}
+        <div class="taskf-form-body">
+            <div> {{ user_form.email.label }}</div>
+            <div> {{ user_form.email }}</div>
+        </div>
+        <button class="button" type="submit">Update</button>    
+    </form>
+{% endblock content %}
