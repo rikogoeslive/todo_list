@@ -18,7 +18,8 @@
             <div> {{ user_form.first_name }}</div>
             <div> {{ user_form.last_name.label }}</div>
             <div> {{ user_form.last_name }}</div>
+            <p></p>
+            <button class="button" type="submit">Update</button> <a href="{% url 'password-change-view' %}">&#8594 Change password &#8592</a>
         </div>
-        <button class="button" type="submit">Update</button>    
     </form>
 {% endblock content %}

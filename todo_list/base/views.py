@@ -1,6 +1,5 @@
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, PasswordChangeView, PasswordChangeDoneView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.forms import UserCreationForm 
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
@@ -41,6 +40,15 @@ class RegisterPage(FormView):
         if self.request.user.is_authenticated:            
             return redirect('tasks')
         return super(RegisterPage, self).get(*args, **kwargs)
+
+
+class UserPasswordChangeView(PasswordChangeView):
+    template_name = "base/password-change.html"
+    success_url = reverse_lazy('password-change-done-view')
+
+
+class UserPasswordChangeDoneView(PasswordChangeDoneView):
+    template_name = "base/password-change-done.html"
 
     
 class TaskList(LoginRequiredMixin, ListView):

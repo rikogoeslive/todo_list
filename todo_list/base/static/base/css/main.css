@@ -1,6 +1,7 @@
 a, p {
     transition: color .3s ease-in-out, box-shadow .3s ease-in-out;
-    color: #4b4b4b
+    color: #FAFAFA;
+    text-decoration: none;
 }
 .alert-success {
     background: linear-gradient(to left, rgb(233, 211, 98), rgb(51, 51, 51));
