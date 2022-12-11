@@ -1,12 +1,12 @@
 {% extends 'base/main.html' %}
+{% load i18n %}
 {% block content  %}
 
 <div class="header-bar">
-    <h1>Registration</h1>
+    <h1>{% trans "Registration" %}</h1>
 </div>
 
 <div class="task-form-body">
-    {% comment %} <a href="{% url 'tasks' %}">GO BACK</a>  {% endcomment %}
     {{ form.errors }}
     <form method="POST">
         {% csrf_token %}
@@ -19,8 +19,8 @@
         <label>{{form.password2.label}}</label>
         {{form.password2}}
         <p></p>
-        <button class="button" type="submit">Submit</button>
+        <button class="button" type="submit">{% trans "Submit" %}</button>
     </form>
-    <p>Already have an account ?<a class="button-reg-log" href="{% url 'login' %}">Login</a></p>
+    <p>{% trans "Already have an account ?" %}<a class="button-reg-log" href="{% url 'login' %}">{% trans "Login" %}</a></p>
 </div>
 {% endblock content %}

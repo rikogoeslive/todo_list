@@ -7,10 +7,10 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView 
 from django.urls import reverse_lazy
+from django.utils.translation import gettext as _
 from django.contrib import messages 
 from .models import Task
 from . forms import RegisterUserForm, UserUpdateForm
-
 
 
 class Login(LoginView):
@@ -19,7 +19,7 @@ class Login(LoginView):
     redirect_authenticated_user = True       
 
     def get_success_url(self):
-        messages.success(self.request, 'You have succesfully logged in!')
+        messages.success(self.request, _('You have succesfully logged in!'))
         return reverse_lazy('tasks')
 
 
@@ -33,7 +33,7 @@ class RegisterPage(FormView):
         user = form.save()
         if user is not None:
             login(self.request, user)
-            messages.success(self.request, 'You have succesfully registered!')
+            messages.success(self.request, _('You have succesfully registered!'))
         return super(RegisterPage, self).form_valid(form)
 
     def get(self, *args, **kwargs):
@@ -79,13 +79,13 @@ class TaskCreate(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        messages.success(self.request, 'You have succesfully added new task!')
+        messages.success(self.request, _('You have succesfully added new task!'))
         return super(TaskCreate, self).form_valid(form)
 
 
 class TaskUpdate(LoginRequiredMixin, UpdateView):
     model = Task
-    fields = ['title', 'description', 'complete']
+    fields = [_('title'), 'description', 'complete']
     success_url = reverse_lazy('tasks')
 
 
@@ -95,7 +95,7 @@ class TaskDelete(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('tasks')
 
     def form_valid(self, form):
-        messages.success(self.request, 'You have succesfully deleted task!')
+        messages.success(self.request, _('You have succesfully deleted task!'))
         return super().form_valid(form)
 
 
@@ -105,7 +105,7 @@ def update_profile(request):
         user_form = UserUpdateForm(request.POST, instance=request.user)        
         if user_form.is_valid():
             user_form.save()            
-            messages.success(request, f"User {request.user.username} profile updated.")
+            messages.success(request, _("User profile updated."))
             return redirect('tasks')
     else: 
         user_form = UserUpdateForm(instance=request.user)        

@@ -1,11 +1,12 @@
 {% extends 'base/main.html' %}
+{% load i18n %}
 {% block content %}
 <div class="header-bar">
-    <a href="{% url 'tasks' %}">&#8592; Back</a>
+    <a href="{% url 'tasks' %}">&#8592; {% trans "Back" %}</a>
 </div>
     <div class="header-bar">
-        <h3>{{ user }} Profile</h3>
-        <p>Here you can update your information</p> 
+        <h3>{{ user }} {% trans "Profile" %}</h3>
+        <p>{% trans "Here you can update your information" %}</p> 
     </div>
     <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
@@ -19,7 +20,7 @@
             <div> {{ user_form.last_name.label }}</div>
             <div> {{ user_form.last_name }}</div>
             <p></p>
-            <button class="button" type="submit">Update</button> <a href="{% url 'password-change-view' %}">&#8594 Change password &#8592</a>
+            <button class="button" type="submit">{% trans "Update" %}</button> <a href="{% url 'password-change-view' %}">&#8594 {% trans "Change password" %} &#8592</a>
         </div>
     </form>
 {% endblock content %}

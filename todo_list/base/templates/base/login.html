@@ -1,16 +1,28 @@
 {% extends 'base/main.html' %}
+{% load i18n%}
 {% block content %}
 
 <div class="header-bar">
-    <h1>Log in</h1>
+    <h1>{% trans "Log in" %}</h1>
 </div>
 <div class="task-form-body">
+    <span>
+        <form action="{% url 'set_language' %}" method="post">
+            {% csrf_token %}
+            <input name="next" type="hidden" value="{{ request.path }}">
+            <select name="language" onchange="this.form.submit()">
+                {% for lang in LANGUAGES %}
+                    <option value="{{ lang.0 }}" {% if lang.0 == LANGUAGE_CODE %} selected{% endif %}>{{ lang.1 }}</option>
+                {% endfor %}
+            </select>        
+        </form>
+    </span>
     <form method="POST">
         {% csrf_token %}
         {{form.as_p}}
-        <button class="button" type="submit">Log in</button>
+        <button class="button" type="submit">{% trans "Log in" %}</button>
     </form>
-    <p>Dont have an account ?<a class="button-reg-log" href="{% url 'register' %}">Register</a></p>
+    <p>{% trans "Dont have an account ?" %}<a class="button-reg-log" href="{% url 'register' %}">{% trans "Register" %}</a></p>
 </div>
 {% endblock content %}
 
